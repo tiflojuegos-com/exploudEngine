@@ -2,6 +2,16 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>tfj.exploudEngine</RootNamespace>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NLog" Version="4.6.8" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\fmodWrapper\fmod_wrapper.csproj" />
+    <ProjectReference Include="..\logSystem\logSystem.csproj" />
+  </ItemGroup>
 
 </Project>

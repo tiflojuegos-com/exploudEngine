@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using FMOD;
+using logSystem;
+using NLog;
 
 namespace tfj.exploudEngine
 {
@@ -20,6 +22,12 @@ namespace tfj.exploudEngine
             this.path = path;
             eUtils.fmodCheck(this.engine.fmod.createSound(this.path, MODE.DEFAULT, out Sound handle));
             this.handle = handle;
+            this.instances = new List<eInstance>();
+        }
+
+        public void clearInstances()
+        {
+            this.instances = new List<eInstance>();
         }
 
         public eInstance play3d(float x, float y, float z, loopMode loop = loopMode.noLoop, bool paused = false)
@@ -57,6 +65,7 @@ namespace tfj.exploudEngine
 
         public void update()
         {
+            
             List<eInstance> forPop = new List<eInstance>();
 
             foreach(eInstance instanse in this.instances)
@@ -71,6 +80,7 @@ namespace tfj.exploudEngine
             }
             foreach(eInstance i in forPop)
             {
+                
                 instances.Remove(i);
 
             }

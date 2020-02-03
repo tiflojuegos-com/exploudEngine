@@ -84,16 +84,24 @@ namespace tfj.exploudEngine
 
             }
         }
+        private bool _is3d;
         public bool is3d
         {
             get
             {
-                eUtils.fmodCheck(this.oculusSourceDSP.getActive(out bool active));
-                return (active);
+                return (_is3d);
             }
             set
             {
-                eUtils.fmodCheck(this.oculusSourceDSP.setActive(value));
+                this._is3d = value;
+                if(value)
+                {
+                    eUtils.fmodCheck(this.handle.addDSP(CHANNELCONTROL_DSP_INDEX.TAIL, this.oculusSourceDSP));
+                }
+                else
+                {
+                    eUtils.fmodCheck(this.handle.removeDSP(this.oculusSourceDSP));
+                }
             }
         }
         public loopMode loop { get; private set;  }

@@ -16,6 +16,7 @@ namespace sampleGame
         eSound sonido;
         eInstance instancia;
         float x = 0;
+        int cooldown = 0;
 
         public Game1()
         {
@@ -46,7 +47,7 @@ namespace sampleGame
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             this.sonido = engine.loadSound("beam.mp3");
-            this.instancia = sonido.play3d(x, 0, 0, loopMode.simpleLoop);
+            this.instancia = this.sonido.play3d(0, 0, 0, loopMode.bidiLoop);
 
             // TODO: use this.Content to load your game content here
         }
@@ -67,14 +68,31 @@ namespace sampleGame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            x += 0.01f;
-            if(x>3 )
+            if(cooldown>0)
             {
-                x = -2;
+                cooldown--;
+            }
+
+            this.instancia.x += 0.01f;
+            if(this.instancia.x>10 )
+            {
+                this.instancia.x = -5;
             }
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
+            if(Keyboard.GetState().IsKeyDown( Keys.Z) && cooldown <= 0)
+            {
+                engine.loadSound("yoshi.wav").play3d(0, 0,0);
+                cooldown = 10;
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.X) && cooldown <= 0)
+            {
+                engine.loadSound("coin.wav").play2d(0, 0);
+                cooldown = 5;
+            }
 
             // TODO: Add your update logic here
             engine.update();

@@ -9,7 +9,7 @@ namespace tfj.exploudEngine
 {
     public class eSoundEngine
     {
-
+        
         private static eSoundEngine _defaultEngine;
         public static eSoundEngine defaultEngine
         {
@@ -65,7 +65,8 @@ namespace tfj.exploudEngine
             defaultEngine = this;
             eUtils.fmodCheck(Factory.System_Create(out FMOD.System fmod));
             this.fmod = fmod;
-            eUtils.fmodCheck(fmod.init(1024, INITFLAGS.NORMAL, (IntPtr)OUTPUTTYPE.AUTODETECT));
+            fmod.setSoftwareChannels(10);
+            eUtils.fmodCheck(fmod.init(10, INITFLAGS.NORMAL, (IntPtr)OUTPUTTYPE.AUTODETECT));
 
             loadPlugins();
             setDefaultSettings();
@@ -130,7 +131,11 @@ namespace tfj.exploudEngine
 
             }
             this.currentRoom.update();
+            fmod.getChannelsPlaying(out int channels);
+            
+            
             eUtils.fmodCheck(fmod.update());
+            
 
         }
 

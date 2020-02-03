@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using FMOD;
+using logSystem;
+using NLog;
 
 namespace tfj.exploudEngine
 {
@@ -54,13 +56,16 @@ namespace tfj.exploudEngine
             VECTOR positionVector = new VECTOR { x = this.x, y = this.y, z = this.z };
             VECTOR velocityVector = new VECTOR { x = this.velX, y = this.velY, z = this.velZ };
             VECTOR upVector = new VECTOR { x = 0, y =(float) Math.Sin((verticalRotation*Math.PI)/180), z = 0 };
+            VECTOR upVector2 = new VECTOR { x = 0, y = 1, z = 0 };
+            VECTOR forwardVector2 = new VECTOR { x = 0, y = 0, z = 1 };
             VECTOR forwardVector = new VECTOR
             {
                 x = (float)Math.Sin((rotation * Math.PI) / 180),
                 y = 0,
                 z = (float)Math.Cos((rotation * Math.PI) / 180)
             };
-            eUtils.fmodCheck(engine.fmod.set3DListenerAttributes(0, ref positionVector, ref velocityVector, ref forwardVector, ref upVector));
+            
+            eUtils.fmodCheck(engine.fmod.set3DListenerAttributes(0, ref positionVector, ref velocityVector, ref forwardVector, ref upVector2));
         }
     }
 }

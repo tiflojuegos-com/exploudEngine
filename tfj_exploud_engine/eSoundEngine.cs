@@ -61,12 +61,15 @@ namespace tfj.exploudEngine
 
         public eSoundEngine()
         {
-            LogWriter.getLog().Debug("starting exploud engine");
+            LogWriter.getLog().Info("starting exploud engine");
             defaultEngine = this;
             eUtils.fmodCheck(Factory.System_Create(out FMOD.System fmod));
             this.fmod = fmod;
-            fmod.setSoftwareChannels(10);
-            eUtils.fmodCheck(fmod.init(10, INITFLAGS.NORMAL, (IntPtr)OUTPUTTYPE.AUTODETECT));
+            
+            eUtils.fmodCheck(fmod.init(1024, INITFLAGS.NORMAL, (IntPtr)OUTPUTTYPE.AUTODETECT));
+            eUtils.fmodCheck(fmod.getDSPBufferSize(out uint bufferLength, out int numOfSamples), "geting dsp buffer size ");
+            LogWriter.getLog().Debug($"loading oculus spatializer with {bufferLength} buffer lenght, and {numOfSamples} num of samples ");
+            eUtils.oculusCheck(eOculusOperations.oculusInit(44100, bufferLength));
 
             loadPlugins();
             setDefaultSettings();

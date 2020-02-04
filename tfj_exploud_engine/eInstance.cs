@@ -100,7 +100,7 @@ namespace tfj.exploudEngine
                 }
                 else
                 {
-                    eUtils.fmodCheck(this.handle.removeDSP(this.oculusSourceDSP));
+                    eUtils.fmodCheck(this.handle.removeDSP(this.oculusSourceDSP), "disconnecting source DSP");
                 }
             }
         }
@@ -113,9 +113,16 @@ namespace tfj.exploudEngine
             eUtils.fmodCheck(engine.fmod.createDSPByPlugin(engine.oculusSourcePluginHandle, out DSP sourceDSP));
             this.oculusSourceDSP = sourceDSP;
             this.is3d = true;
+            
             this.reflections = false;
             this.paused = true;
             this.loop = loopMode.noLoop;
+        }
+
+        internal void release()
+        {
+            this.is3d = false;
+            eUtils.fmodCheck(this.oculusSourceDSP.release(), "releasing source dsp");
         }
 
         internal void addToGroup(eInstanceGroup group)

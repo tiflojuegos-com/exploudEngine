@@ -17,11 +17,19 @@ namespace tfj.exploudEngine
     public static class eUtils
     {
 
-        public static RESULT fmodCheck(FMOD.RESULT result)
+        public static void oculusCheck(int operationResult)
+        {
+            if(operationResult != 0)
+            {
+                LogWriter.getLog().Error($"problems calling an internal function of Oculus plugin. Returned an {operationResult} operation result status.");
+            }
+        }
+
+        public static RESULT fmodCheck(FMOD.RESULT result, string step = "non detailed.")
         {
           if(result != RESULT.OK)
             {
-                LogWriter.getLog().Error($"problems excecuting a fmod function {result}");
+                LogWriter.getLog().Error($"problems excecuting a fmod function at {step} step {result}");
               
             }
             return (result);

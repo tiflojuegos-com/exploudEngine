@@ -80,7 +80,7 @@ namespace tfj.exploudEngine
             }
             foreach(eInstance i in forPop)
             {
-                
+                i.release();                
                 instances.Remove(i);
 
             }

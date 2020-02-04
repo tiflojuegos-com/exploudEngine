@@ -84,8 +84,8 @@ namespace sampleGame
 
             if(Keyboard.GetState().IsKeyDown( Keys.Z) && cooldown <= 0)
             {
-                engine.loadSound("yoshi.wav").play3d(0, 0,0);
-                cooldown = 10;
+                engine.loadSound("yoshi.wav").play3d(1, 0,0);
+                cooldown = 2;
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.X) && cooldown <= 0)

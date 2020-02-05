@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using tfj.exploudEngine;
@@ -17,6 +18,7 @@ namespace sampleGame
         eInstance instancia;
         float x = 0;
         int cooldown = 0;
+        Random randomsito;
 
         public Game1()
         {
@@ -34,6 +36,7 @@ namespace sampleGame
         {
             // TODO: Add your initialization logic here
             engine = new eSoundEngine();
+            randomsito = new Random();
 
             base.Initialize();
         }
@@ -90,7 +93,8 @@ namespace sampleGame
 
             if (Keyboard.GetState().IsKeyDown(Keys.X) && cooldown <= 0)
             {
-                engine.loadSound("coin.wav").play2d(0, 0);
+                int pan = randomsito.Next(-10, 11);
+                engine.loadSound("coin.wav").play((float)pan/10);
                 cooldown = 5;
             }
 

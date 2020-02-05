@@ -32,7 +32,7 @@ namespace tfj.exploudEngine
 
         public eInstance play3d(float x, float y, float z, loopMode loop = loopMode.noLoop, bool paused = false)
         {
-            eInstance instance = play();
+            eInstance instance = prePlay();
             instance.x = x;
             instance.y = y;
             instance.z = z;
@@ -43,11 +43,11 @@ namespace tfj.exploudEngine
 
         }
 
-        public eInstance play2d(float x, float y, loopMode loop = loopMode.noLoop, bool paused = false)
+        public eInstance play(float pan = 0, loopMode loop = loopMode.noLoop, bool paused = false)
         {
-            eInstance instance = play();
-            instance.x = x;
-            instance.y = y;
+            eInstance instance = prePlay();
+            instance.pan = pan;
+            
             instance.addToGroup(this.engine.default2dGroup);
             instance.is3d = false;
             instance.setLoop(loop);
@@ -55,7 +55,7 @@ namespace tfj.exploudEngine
             return (instance);
         }
 
-        private eInstance play()
+        private eInstance prePlay()
         {
             eUtils.fmodCheck(this.engine.fmod.playSound(this.handle, this.engine.default3dGroup.handle, true, out Channel channel));
             eInstance instance = new eInstance(channel, this.engine);

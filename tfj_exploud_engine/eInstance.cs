@@ -18,6 +18,26 @@ namespace tfj.exploudEngine
         public float vely = 0;
         public float velZ = 0;
         public float bertical = 0;
+        public float _pan;
+        public float pan
+        {
+            get
+            {
+                return(this._pan);
+            }
+            set
+            {
+                this._pan = value;
+                if(this._pan >1)
+                {
+                    this._pan = 1;
+                }
+                else if(this._pan < -1)
+                {
+                    this._pan = -1;
+                }
+            }
+        }
         public bool reflections
         {
             get
@@ -130,6 +150,11 @@ namespace tfj.exploudEngine
             eUtils.fmodCheck(this.handle.setChannelGroup(group.handle));
         }
 
+        public void stop()
+        {
+            eUtils.fmodCheck(this.handle.stop(), "manual stop of a channel ");
+        }
+
         public void setLoop(loopMode mode)
         {
             MODE fmodMode;
@@ -155,34 +180,41 @@ namespace tfj.exploudEngine
 
         public void update()
         {
-            eUtils.fmodCheck(this.oculusSourceDSP.setParameterFloat(3, this.radius));
-            eUtils.fmodCheck(this.oculusSourceDSP.setParameterFloat(4, this.minDistance));
-            eUtils.fmodCheck(this.oculusSourceDSP.setParameterFloat(5, this.maxDistance));
-            VECTOR positionVector = new VECTOR { x = this.x, y = this.y, z = this.z };
-            VECTOR velocityVector = new VECTOR { x = this.velX, y = this.vely, z = this.velZ };
-            VECTOR upVector = new VECTOR { x = 0, y = 1, z = 0 };
-            VECTOR forwardVector = new VECTOR { x = 0, y = 0, z = 1 };
-
-            DSP_PARAMETER_3DATTRIBUTES attributes3d = new DSP_PARAMETER_3DATTRIBUTES();
-            attributes3d.absolute = new ATTRIBUTES_3D
+            if (is3d)
             {
-                position = positionVector,
-                velocity = velocityVector,
-                forward = forwardVector,
-                up = upVector
-            };
 
-            attributes3d.relative = new ATTRIBUTES_3D
+                eUtils.fmodCheck(this.oculusSourceDSP.setParameterFloat(3, this.radius));
+                eUtils.fmodCheck(this.oculusSourceDSP.setParameterFloat(4, this.minDistance));
+                eUtils.fmodCheck(this.oculusSourceDSP.setParameterFloat(5, this.maxDistance));
+                VECTOR positionVector = new VECTOR { x = this.x, y = this.y, z = this.z };
+                VECTOR velocityVector = new VECTOR { x = this.velX, y = this.vely, z = this.velZ };
+                VECTOR upVector = new VECTOR { x = 0, y = 1, z = 0 };
+                VECTOR forwardVector = new VECTOR { x = 0, y = 0, z = 1 };
+
+                DSP_PARAMETER_3DATTRIBUTES attributes3d = new DSP_PARAMETER_3DATTRIBUTES();
+                attributes3d.absolute = new ATTRIBUTES_3D
+                {
+                    position = positionVector,
+                    velocity = velocityVector,
+                    forward = forwardVector,
+                    up = upVector
+                };
+
+                attributes3d.relative = new ATTRIBUTES_3D
+                {
+                    position = positionVector,
+                    velocity = velocityVector,
+                    forward = forwardVector,
+                    up = upVector
+                };
+
+                byte[] attributesData = eUtils.generateBytes(attributes3d, typeof(DSP_PARAMETER_3DATTRIBUTES));
+                eUtils.fmodCheck(this.oculusSourceDSP.setParameterData(0, attributesData));
+            }
+            else
             {
-                position = positionVector,
-                velocity = velocityVector,
-                forward = forwardVector,
-                up = upVector
-            };
-
-            byte[] attributesData = eUtils.generateBytes(attributes3d, typeof(DSP_PARAMETER_3DATTRIBUTES));
-            eUtils.fmodCheck(this.oculusSourceDSP.setParameterData(0, attributesData));
-
+                eUtils.fmodCheck(this.handle.setPan(this.pan));
+            }
 
 
 

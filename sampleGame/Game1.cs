@@ -118,6 +118,55 @@ namespace sampleGame
                 fossilMusic.stop();
 
             }
+            if(Keyboard.GetState().IsKeyDown( Keys.Left) && cooldown <= 0)
+            {
+                this.engine.listener.rotation -= 5;
+                cooldown = 3;
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.Right) && cooldown <= 0)
+            {
+                this.engine.listener.rotation += 5;
+                cooldown = 3;
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.W) && cooldown <= 0)
+            {
+                this.engine.listener.z += 0.3F;
+                cooldown = 15;
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.S) && cooldown <= 0)
+            {
+                this.engine.listener.z -= 0.3f;
+                cooldown = 15;
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.D) && cooldown <= 0)
+            {
+                this.engine.listener.x += 0.3F;
+                cooldown = 15;
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.A) && cooldown <= 0)
+            {
+                this.engine.listener.x -= 0.3f;
+                cooldown = 15;
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.F3) && cooldown <= 0)
+            {
+                this.engine.defaultMusicGroup.volume -= 0.1f;
+                cooldown = 5;
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.F4) && cooldown <= 0)
+            {
+                this.engine.defaultMusicGroup.volume += 0.1f;
+                cooldown = 5;
+            }
+
+
 
             // TODO: Add your update logic here
             engine.update();

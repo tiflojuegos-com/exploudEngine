@@ -125,7 +125,27 @@ namespace tfj.exploudEngine
             }
         }
         public loopMode loop { get; private set;  }
-      
+        public float volume
+        {
+            get
+            {
+                eUtils.fmodCheck(this.handle.getVolume(out float volume));
+                return (volume);
+            }
+            set
+            {
+                if (value > 1)
+                {
+                    value = 1;
+                }
+                else if (value < 0)
+                {
+                    value = 0;
+                }
+                eUtils.fmodCheck(this.handle.setVolume(value));
+            }
+        }
+
         internal eInstance(Channel handle, eSoundEngine engine)
         {
             this.engine = engine;

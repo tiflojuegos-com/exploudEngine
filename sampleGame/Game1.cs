@@ -19,6 +19,9 @@ namespace sampleGame
         float x = 0;
         int cooldown = 0;
         Random randomsito;
+        eMusic yoshimusic;
+        eMusic fossilMusic;
+
 
         public Game1()
         {
@@ -51,6 +54,9 @@ namespace sampleGame
             spriteBatch = new SpriteBatch(GraphicsDevice);
             this.sonido = engine.loadSound("beam.mp3");
             this.instancia = this.sonido.play3d(0, 0, 0, loopMode.bidiLoop);
+            this.yoshimusic = engine.loadMusic("yoshi.mp3");
+            this.fossilMusic = engine.loadMusic("fossil.mp3");
+
 
             // TODO: use this.Content to load your game content here
         }
@@ -62,6 +68,7 @@ namespace sampleGame
         protected override void UnloadContent()
         {
             // TODO: Unload any non ContentManager content here
+            engine = null;
         }
 
         /// <summary>
@@ -96,6 +103,20 @@ namespace sampleGame
                 int pan = randomsito.Next(-10, 11);
                 engine.loadSound("coin.wav").play((float)pan/10);
                 cooldown = 5;
+            }
+            if(Keyboard.GetState().IsKeyDown( Keys.Y))
+            {
+                yoshimusic.play();
+            }
+            if(Keyboard.GetState().IsKeyDown( Keys.F))
+            {
+                fossilMusic.play();
+            }
+            if(Keyboard.GetState().IsKeyDown( Keys.Space))
+            {
+                yoshimusic.stop();
+                fossilMusic.stop();
+
             }
 
             // TODO: Add your update logic here

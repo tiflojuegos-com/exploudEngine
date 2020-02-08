@@ -33,7 +33,7 @@ namespace tfj.exploudEngine
         public eInstanceGroup defaultMusicGroup { get; private set;  }
         public eListener listener { get; private set;  }
         public eRoom currentRoom { get; private set;  }
-        private Dictionary<string, eSound> soundKache;
+        private Dictionary<string, ePlayable> soundKache;
         public bool reflections3d
         {
             get
@@ -70,9 +70,17 @@ namespace tfj.exploudEngine
             eUtils.fmodCheck(fmod.getDSPBufferSize(out uint bufferLength, out int numOfSamples), "geting dsp buffer size ");
             LogWriter.getLog().Debug($"loading oculus spatializer with {bufferLength} buffer lenght, and {numOfSamples} num of samples ");
             eUtils.oculusCheck(eOculusOperations.oculusInit(44100, bufferLength));
+            this.soundKache = new Dictionary<string, ePlayable>();
 
             loadPlugins();
             setDefaultSettings();
+
+        }
+
+        ~eSoundEngine()
+        {
+            clearSoundCache();
+            eUtils.fmodCheck(this.fmod.release(), "clearing internal fmod");
 
         }
 
@@ -109,15 +117,20 @@ namespace tfj.exploudEngine
 
         }
 
+        private string calulateID(string path)
+        {
+            return (path.Replace("\\", ".").Replace("/", "."));
+        }
+
         public eSound loadSound(string path)
         {
-          
-            string id = path.Replace("\\", ".");
+
+            string id = calulateID(path);
             LogWriter.getLog().Info($"loading {id} sound");
             if(soundKache.ContainsKey(id))
             {
                 LogWriter.getLog().Info($"{id} sound was loaded previously. returning kached data");
-                return (soundKache[id]);
+                return ((eSound) soundKache[id]);
             }
             eSound sound = new eSound(id, path, this);
             soundKache.Add(id, sound);
@@ -125,17 +138,31 @@ namespace tfj.exploudEngine
             return (sound);
         }
 
+        public eMusic loadMusic(string path)
+        {
+
+            string id = calulateID(path);
+            LogWriter.getLog().Info($"loading {id} music");
+            if (soundKache.ContainsKey(id))
+            {
+                LogWriter.getLog().Info($"{id} music was loaded previously. returning kached data");
+                return ((eMusic) soundKache[id]);
+            }
+            eMusic music = new eMusic(id, path, this);
+            soundKache.Add(id, music);
+            LogWriter.getLog().Info($"{id} music loaded");
+            return (music);
+        }
+
         public void update()
         {
             this.listener.update();
-            foreach(KeyValuePair<string,eSound> k in soundKache)
+            foreach(KeyValuePair<string,ePlayable> k in soundKache)
             {
                 k.Value.update();
 
             }
             this.currentRoom.update();
-            fmod.getChannelsPlaying(out int channels);
-            
             
             eUtils.fmodCheck(fmod.update());
             
@@ -144,7 +171,13 @@ namespace tfj.exploudEngine
 
         public void clearSoundCache()
         {
-            this.soundKache = new Dictionary<string, eSound>();
+            foreach (KeyValuePair<string, ePlayable> k in soundKache)
+            {
+                k.Value.release();
+
+            }
+
+            this.soundKache = new Dictionary<string, ePlayable>();
         }
     }
 }

@@ -7,13 +7,31 @@ using NLog;
 
 namespace tfj.exploudEngine
 {
-    public class eMusic
+    public class eMusic : ePlayable
     {
         public Sound handle { get; private set; }
-        public string id { get; private set; }
-        public string path { get; private set; }
+        public new string id { get; private set; }
+        public new string path { get; private set; }
         private eInstance instance;
         private eSoundEngine engine;
+public bool paused
+        {
+            get
+            {
+                return (this.instance.paused);
+            }
+            set
+            {
+                this.instance.paused = value;
+            }
+        }
+        public bool playing
+        {
+            get
+            {
+                return (this.instance.playing);
+            }
+        }
 
         internal eMusic(string id, string path, eSoundEngine engine)
         {
@@ -25,8 +43,18 @@ namespace tfj.exploudEngine
            
         }
 
+        ~eMusic()
+        {
+            
+            this.release();
+        }
+
         public void stop()
         {
+            if(this.instance==null)
+            {
+                return;
+            }
             this.instance.stop();
             this.instance.release();
             this.instance = null;
@@ -46,13 +74,18 @@ namespace tfj.exploudEngine
 
         private eInstance prePlay()
         {
+            if (this.instance != null)
+            {
+                this.stop();
+            }
+
             eUtils.fmodCheck(this.engine.fmod.playSound(this.handle, this.engine.defaultMusicGroup.handle, true, out Channel channel));
             eInstance instance = new eInstance(channel, this.engine);
             this.instance = instance;
             return (instance);
         }
 
-        public void update()
+        public override void update()
         {
             if(this.instance != null)
             {
@@ -67,6 +100,16 @@ namespace tfj.exploudEngine
                 }
             }
 
+        }
+
+        internal override void release()
+        {
+            this.stop();
+        }
+
+        public override void play()
+        {
+            play(loopMode.noLoop); 
         }
     }
 }

@@ -139,6 +139,11 @@ namespace tfj.exploudEngine
             this.loop = loopMode.noLoop;
         }
 
+        ~eInstance()
+        {
+            this.release();
+        }
+
         internal void release()
         {
             this.is3d = false;

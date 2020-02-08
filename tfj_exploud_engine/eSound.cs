@@ -7,11 +7,11 @@ using NLog;
 
 namespace tfj.exploudEngine
 {
-    public class eSound
+    public class eSound : ePlayable
     {
         public Sound handle { get; private set; }
-        public string id { get; private set;  }
-        public string path { get; private set;  }
+        public new string id { get; private set;  }
+        public new string path { get; private set;  }
         public List<eInstance> instances;
         private eSoundEngine engine;
 
@@ -25,8 +25,19 @@ namespace tfj.exploudEngine
             this.instances = new List<eInstance>();
         }
 
+        ~eSound()
+        {
+            this.release();
+        }
+
         public void clearInstances()
         {
+            foreach(eInstance instance in this.instances)
+            {
+                instance.stop();
+                instance.release();
+
+            }
             this.instances = new List<eInstance>();
         }
 
@@ -63,7 +74,7 @@ namespace tfj.exploudEngine
             return (instance);
         }
 
-        public void update()
+        public override void update()
         {
             
             List<eInstance> forPop = new List<eInstance>();
@@ -84,6 +95,16 @@ namespace tfj.exploudEngine
                 instances.Remove(i);
 
             }
+        }
+
+        internal override void release()
+        {
+            this.clearInstances();
+        }
+
+        public override void play()
+        {
+            this.play(0, loopMode.noLoop);
         }
     }
 }

@@ -4,13 +4,13 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <RootNamespace>tfj.exploudEngine</RootNamespace>
+    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="fmod.dll" />
     <None Remove="fmodstudio.dll" />
     <None Remove="plugins\OculusSpatializerFMOD.dll" />
-    <None Remove="plugins\resonanceaudio.dll" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,9 +23,6 @@
     <Content Include="plugins\OculusSpatializerFMOD.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="plugins\resonanceaudio.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -33,7 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\fmodWrapper\fmod_wrapper.csproj" />
+    <ProjectReference Include="..\fmod_wrapper_standard\fmod_wrapper_standard.csproj" />
     <ProjectReference Include="..\logSystem\logSystem.csproj" />
   </ItemGroup>
 

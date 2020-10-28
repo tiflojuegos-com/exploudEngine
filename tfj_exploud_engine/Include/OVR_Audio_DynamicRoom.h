@@ -31,7 +31,10 @@ typedef struct OVR_ALIGNAS(4) ovrAudioVector3f_
     float x, y, z;
 } ovrAudioVector3f;
 
-typedef void(*OVRA_RAYCAST_CALLBACK)(ovrAudioVector3f origin, ovrAudioVector3f direction, ovrAudioVector3f* hit, ovrAudioVector3f* normal, void* pctx);
+#define REVERB_BAND_COUNT 4
+typedef float AudioBands[REVERB_BAND_COUNT];
+
+typedef void(*OVRA_RAYCAST_CALLBACK)(ovrAudioVector3f origin, ovrAudioVector3f direction, ovrAudioVector3f* hit, ovrAudioVector3f* normal, AudioBands reflectionBands, void* pctx);
 
 
 #ifdef __cplusplus

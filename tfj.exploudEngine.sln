@@ -5,13 +5,11 @@ VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tfj_exploud_engine", "tfj_exploud_engine\tfj_exploud_engine.csproj", "{FC1832D7-025A-4F16-A834-34146563A64D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "fmod_wrapper", "fmodWrapper\fmod_wrapper.csproj", "{E1F74346-FF50-4D6B-80BD-4F809CDE2C1E}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "logSystem", "logSystem\logSystem.csproj", "{3CBEFA4E-7B7C-4474-9062-42D88B954CAC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sampleGame", "sampleGame\sampleGame.csproj", "{10C1E96A-84D7-44E6-950F-78676A37BB54}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "fmod_wrapper_standard", "fmod_wrapper_standard\fmod_wrapper_standard.csproj", "{A2FCADCA-C927-46D2-BBF7-B9601156E595}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "fmod_wrapper_standard", "fmod_wrapper_standard\fmod_wrapper_standard.csproj", "{A2FCADCA-C927-46D2-BBF7-B9601156E595}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,18 +33,6 @@ Global
 		{FC1832D7-025A-4F16-A834-34146563A64D}.Release|x64.Build.0 = Release|x64
 		{FC1832D7-025A-4F16-A834-34146563A64D}.Release|x86.ActiveCfg = Release|Any CPU
 		{FC1832D7-025A-4F16-A834-34146563A64D}.Release|x86.Build.0 = Release|Any CPU
-		{E1F74346-FF50-4D6B-80BD-4F809CDE2C1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E1F74346-FF50-4D6B-80BD-4F809CDE2C1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E1F74346-FF50-4D6B-80BD-4F809CDE2C1E}.Debug|x64.ActiveCfg = Debug|x64
-		{E1F74346-FF50-4D6B-80BD-4F809CDE2C1E}.Debug|x64.Build.0 = Debug|x64
-		{E1F74346-FF50-4D6B-80BD-4F809CDE2C1E}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{E1F74346-FF50-4D6B-80BD-4F809CDE2C1E}.Debug|x86.Build.0 = Debug|Any CPU
-		{E1F74346-FF50-4D6B-80BD-4F809CDE2C1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E1F74346-FF50-4D6B-80BD-4F809CDE2C1E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E1F74346-FF50-4D6B-80BD-4F809CDE2C1E}.Release|x64.ActiveCfg = Release|x64
-		{E1F74346-FF50-4D6B-80BD-4F809CDE2C1E}.Release|x64.Build.0 = Release|x64
-		{E1F74346-FF50-4D6B-80BD-4F809CDE2C1E}.Release|x86.ActiveCfg = Release|Any CPU
-		{E1F74346-FF50-4D6B-80BD-4F809CDE2C1E}.Release|x86.Build.0 = Release|Any CPU
 		{3CBEFA4E-7B7C-4474-9062-42D88B954CAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3CBEFA4E-7B7C-4474-9062-42D88B954CAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3CBEFA4E-7B7C-4474-9062-42D88B954CAC}.Debug|x64.ActiveCfg = Debug|x64

@@ -94,7 +94,11 @@ namespace sampleGame
 
             if(Keyboard.GetState().IsKeyDown( Keys.Z) && cooldown <= 0)
             {
-                engine.loadSound("yoshi.wav").play3d(1, 0,0);
+                eInstance yoshyPlaying = engine.loadSound("yoshi.wav").play3d(1, 0,0);
+                yoshyPlaying.radius = 1.0f;
+                yoshyPlaying.minDistance = 2.0f;
+                yoshyPlaying.maxDistance = 50.0f;
+                yoshyPlaying.oculusAtenuation = true;
                 cooldown = 2;
             }
 
@@ -102,7 +106,7 @@ namespace sampleGame
             {
                 int pan = randomsito.Next(-10, 11);
                 engine.loadSound("coin.wav").play((float)pan/10);
-                cooldown = 5;
+                cooldown = 2;
             }
             if(Keyboard.GetState().IsKeyDown( Keys.Y))
             {

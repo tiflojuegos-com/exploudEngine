@@ -34,13 +34,13 @@ namespace tfj.exploudEngine
             set
             {
                 _rotation = value;
-                if(_rotation > 360)
+                if(_rotation >= 360)
                 {
                     _rotation = 0;
                 }
                 if(value <0 )
                 {
-                    _rotation = 0;
+                    _rotation = 359;
                 }
             }
         }
